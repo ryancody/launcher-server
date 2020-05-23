@@ -2,9 +2,10 @@ const path = require('path')
 const util = require('util')
 const fs = require('fs')
 const readDir = util.promisify(fs.readdir)
+const readFile = util.promisify(fs.readFile)
 const hash = require('./Hash')
 
-exports.getFilesRecursive = async (currentDir, fileArray) => {
+exports.listFilenamesRecursive = async (currentDir, fileArray) => {
     let objects = await readDir(currentDir)
 
     for (let i = 0; i < objects.length; i++) {
@@ -16,7 +17,7 @@ exports.getFilesRecursive = async (currentDir, fileArray) => {
                 fileArray.push(objects[i])
             }
             else if (stat.isDirectory()) {
-                let subObjects = await this.getFilesRecursive(objects[i], fileArray)
+                let subObjects = await this.listFilenamesRecursive(objects[i], fileArray)
                 fileArray.concat(subObjects)
             }
             else {
@@ -35,7 +36,7 @@ exports.buildFileStatus = async (dataPath) => {
     let files = []
     let fileHashes = {}
 
-    files = await this.getFilesRecursive(dataPath, files)
+    files = await this.listFilenamesRecursive(dataPath, files)
 
     for (let i = 0; i < files.length; i++)
     {
@@ -43,4 +44,9 @@ exports.buildFileStatus = async (dataPath) => {
     }
     
     return fileHashes
+}
+
+exports.getFile = async (dataPath) => {
+    let blob = await readFile(dataPath, {encoding: 'utf8'})
+    return blob
 }
