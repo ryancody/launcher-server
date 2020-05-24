@@ -3,12 +3,12 @@ const app = express()
 const fileReader = require('./controller/FileReader')
 const path = require('path')
 const dataDirectory = 'data'
-const fs = require('fs')
+require('dotenv').load();
 
 let fileState = {}
 
 app.get('/', function(req, res) {
-    res.sendFile(path.join(__dirname + '/moongate-launcher Setup 0.0.1.exe'));
+    res.sendFile(path.join(__dirname + 'index.html'));
 });
 
 app.listen(process.env.PORT, () => console.log(`listening at ${process.env.PORT}`))
