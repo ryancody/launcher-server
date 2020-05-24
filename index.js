@@ -1,6 +1,5 @@
 const express = require('express')
 const app = express()
-const port = 3000
 const fileReader = require('./controller/FileReader')
 const path = require('path')
 const dataDirectory = 'data'
@@ -8,9 +7,11 @@ const fs = require('fs')
 
 let fileState = {}
 
-app.get('/', (req, res) => res.send('Online!'))
+app.get('/', function(req, res) {
+    res.sendFile(path.join(__dirname + '/moongate-launcher-Setup.exe'));
+});
 
-app.listen(port, () => console.log(`listening at ${port}`))
+app.listen(process.env.PORT, () => console.log(`listening at ${process.env.PORT}`))
 
 app.get('/latest', (req, res) => res.send(fileState))
 
