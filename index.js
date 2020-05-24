@@ -7,9 +7,7 @@ require('dotenv').config();
 
 let fileState = {}
 
-app.get('/', function(req, res) {
-    res.sendFile(path.join(__dirname,'index.html'));
-});
+app.use(express.static(__dirname + '/public'));
 
 app.listen(process.env.PORT, () => console.log(`listening at ${process.env.PORT}`))
 
