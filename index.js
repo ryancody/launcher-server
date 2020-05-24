@@ -8,7 +8,7 @@ const fs = require('fs')
 let fileState = {}
 
 app.get('/', function(req, res) {
-    res.sendFile(path.join(__dirname + '/moongate-launcher-Setup.exe'));
+    res.sendFile(path.join(__dirname + '/moongate-launcher Setup 0.0.1.exe'));
 });
 
 app.listen(process.env.PORT, () => console.log(`listening at ${process.env.PORT}`))
