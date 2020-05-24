@@ -3,7 +3,7 @@ const app = express()
 const fileReader = require('./controller/FileReader')
 const path = require('path')
 const dataDirectory = 'data'
-require('dotenv').load();
+require('dotenv').config();
 
 let fileState = {}
 
